@@ -1,0 +1,293 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url("../Images/bg.jpg");
+  background-size: cover;
+  color: white;
+  font-family: "Roboto", serif;
+  font-weight: 300;
+}
+
+main,
+header {
+  width: 70%;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Outfit", sans-serif;
+}
+
+#logo {
+  height: 20vh;
+}
+
+#logo img {
+  width: 10vw;
+  margin: 4em 0;
+}
+
+.btnBlue {
+  cursor: pointer;
+  width: 12em;
+  height: 3em;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  background-color: #00ffff;
+  box-shadow: 3px 3px 1.2em #00ffff, -3px -3px 1.2em #00ffff;
+}
+
+#proceed,
+#check, .check, #results section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ----- Welcome page ----- */
+
+#instructions {
+  width: 70%;
+  font-size: 20px;
+}
+
+#title {
+  font-weight: normal;
+  font-size: 5em;
+  line-height: 0.8em;
+  margin-top: 10px;
+}
+
+#instructionsTitle {
+  color: #d20094;
+  line-height: 1px;
+}
+
+#description {
+  width: 80%;
+}
+
+#instructionList {
+  margin: 50px 0;
+}
+
+#instructionList li {
+  line-height: 1.5em;
+}
+
+#proceed {
+  margin-top: 5em;
+  width: 100%;
+}
+
+input[type="checkbox"] {
+  visibility: hidden;
+  display: none;
+}
+
+#check {
+  cursor: pointer;
+}
+
+.checkmark:hover {
+  background-color: gray;
+  cursor: pointer;
+}
+
+#check input:checked ~ .checkmark  {
+  width: 25px;
+  height: 25px;
+  background-color: #d20094;
+  border-radius: 5px;
+}
+
+.checkmark {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid white;
+  border-radius: 5px;
+  transition: all 0.375s;
+}
+
+#proceed button {
+  float: right;
+  margin-right: 5em;
+}
+
+#errorProceded {
+  color: red;
+  visibility: hidden;
+}
+
+.isDisplay {
+  visibility: visible !important;
+}
+
+#footer {
+  height: 10vh;
+}
+
+/* ----- Exam page ----- */
+
+.c-countdown-wrapper {
+  width: 5vw;
+  height: 8vh;
+  word-wrap: normal;
+  float: right;
+  margin-bottom: 1em;
+  align-content: center;
+  margin-top: 2em;
+}
+
+#exam,
+#questionNumber {
+  text-align: center;
+}
+
+#question {
+  font-size: 3.5em;
+  font-weight: normal;
+  margin-bottom: 1.5em;
+}
+
+.option {
+  min-width: 450px;
+  height: 5em;
+  margin: 2em;
+  border: transparent;
+  border-radius: 40px;
+  box-shadow: 3px -1px 3px white, -2px -2px 3px white;
+  background-color: rgb(255, 255, 255, 10%);
+  color: white;
+  font-size: 1em;
+}
+
+.option:hover {
+  background-color: #d20094;
+}
+#confirm {
+  margin-top: 2em;
+  border-radius: 10px;
+}
+#questionNumber {
+  margin-top: 3em;
+  font-weight: 400;
+  font-size: 1.3em;
+}
+
+.colored {
+  color: #d20094;
+}
+
+/* ----- Result page ----- */
+
+#results {
+  text-align: center;
+  height: 75vh;
+  font-size: 2em;
+  font-family: "Outfit", sans-serif;
+}
+
+#results h1 {
+  margin: 0;
+}
+
+#summary {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+#results section {
+  font-size: 2em;
+  height: 50vh;
+}
+
+#correct,
+#wrong {
+  line-height: 0;
+}
+
+#correct {
+  text-align: left;
+}
+
+#wrong {
+  text-align: right;
+}
+
+#percentageCorrect,
+#percentageWrong {
+  font-weight: bold;
+}
+
+#questionsCorrect,
+#questionsWrong {
+  font-size: 0.4em;
+}
+
+#rate {
+  margin: 2em;
+  width: 180px;
+  height: 60px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  font-weight: bold;
+  font-size: 0.5em;
+  cursor: pointer;
+}
+
+/* ----- Feedback page ----- */
+
+#feedback {
+  text-align: center;
+  font-size: 1.5em;
+  width: 60%;
+  font-family: "Outfit", sans-serif;
+}
+
+#feedbackTitle {
+  font-size: 2em;
+  font-family: "Roboto", serif;
+}
+
+#stars {
+  margin: 2em 0;
+}
+
+.star {
+  filter: grayscale(100%);
+  cursor: pointer;
+  margin: 5px;
+}
+
+.star:hover,
+.star.hovered {
+  filter: grayscale(0%);
+  transform: scale(1.2);
+}
+
+.star.selected {
+  filter: grayscale(0%);
+}
+
+#feedback input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #d20094;
+  width: 80%;
+  height: 40px;
+  font-size: 1em;
+  padding-left: 30px;
+  color: white;
+}
+
+#feedback button {
+  margin-top: 3em;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="Assets/Images/icon.jpg">
+    <link rel="stylesheet" href="Assets/Css/style.css">
+</head>
+
+<body>
+
+    <header id="logo">
+        <img src="Assets/Images/epicode_logo.png" alt="Logo Epicode" />
+    </header>
+
+    <main>
+
+        <div id="instructions">
+
+            <h1 id="title">Welcome to <br> <b>your exam</b></h1>
+
+            <h2 id="instructionsTitle">Instructions</h2>
+            <p id="description">We don't expect most engineers to know the answers to all of these questions, so don't
+                worry if you're unsure of a few of them.</p>
+
+            <ul id="instructionList">
+                <li>
+                    Each question is <b>timed</b> and can only <b>answered once.</b>
+                </li>
+                <li>
+                    Changing browser tab or opening other windows will <b>invalidate the question.</b>
+                </li>
+                <li>
+                    This exam will take approx, <b>0-5 minutes.</b>
+                </li>
+            </ul>
+
+        </div>
+
+        <div id="proceed">
+
+            <div id="check">
+
+                <label class="check">
+                    <input type="checkbox" id="proceedCheck" required>
+                    <span class="checkmark"></span> &nbsp; &nbsp;
+                    <b>I promise to answer myself without help from anyone</b>
+                </label>
+
+            </div>
+
+            <div>
+                <button type="button" id="proceedButton" class="btnBlue">PROCEED</button>
+            </div>
+
+        </div>
+
+        <p id="errorProceded">Check this field for continue exame</p>
+
+    </main>
+
+    <footer id="footer">
+        <div>
+
+        </div>
+    </footer>
+
+    <script src="Assets/Js/script.js"></script>
+</body>
+
+</html>

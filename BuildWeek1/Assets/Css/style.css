@@ -40,6 +40,7 @@ h3 {
   border: none;
   background-color: #00ffff;
   box-shadow: 3px 3px 1.2em #00ffff, -3px -3px 1.2em #00ffff;
+  border-radius: 5px;
 }
 
 #proceed,
@@ -136,8 +137,8 @@ input[type="checkbox"] {
 /* ----- Exam page ----- */
 
 .c-countdown-wrapper {
-  width: 5vw;
-  height: 8vh;
+  width: 8vw;
+  height: 11vh;
   word-wrap: normal;
   float: right;
   margin-bottom: 1em;
@@ -241,6 +242,7 @@ input[type="checkbox"] {
   font-weight: bold;
   font-size: 0.5em;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 /* ----- Feedback page ----- */

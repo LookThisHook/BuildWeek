@@ -78,12 +78,13 @@ const canvas = document.getElementById("countdown");
 const ctx = canvas.getContext("2d");
 
 // Configurazione del cerchio
-const radius = 90; // Raggio del cerchio
+const radius = 60; // Raggio del cerchio
 const fullTime = 60;
 let remainingTime = fullTime;
 
 // Funzione per disegnare il cerchio
 function drawCircle(progress) {
+  
   // Pulizia del canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -107,6 +108,7 @@ function drawCircle(progress) {
   ctx.strokeStyle = "#3498db";
   ctx.lineWidth = 10;
   ctx.stroke();
+  
 }
 
 // Funzione per far partire il timer
@@ -118,6 +120,8 @@ function startTimer() {
   const timer = setInterval(() => {
     step++;
     remainingTime = Math.max(0, fullTime - (step * interval) / 1000); // Calcolo del tempo rimanente
+    console.log(remainingTime);
+    
     const progress = remainingTime / fullTime; // Progresso percentuale
     drawCircle(progress); // Aggiornamento del cerchio
 

@@ -104,6 +104,7 @@ function drawCircle(progress) {
     -Math.PI / 2 + 2 * Math.PI * progress,
     false
   );
+
   ctx.strokeStyle = "#3498db";
   ctx.lineWidth = 10;
   ctx.stroke();
@@ -118,14 +119,18 @@ function startTimer() {
   const timer = setInterval(() => {
     step++;
     remainingTime = Math.max(0, fullTime - (step * interval) / 1000); // Calcolo del tempo rimanente
-    console.log(remainingTime);
-    console.log(document.getElementById("timeriminig"));
-    
     const progress = remainingTime / fullTime; // Progresso percentuale
     drawCircle(progress); // Aggiornamento del cerchio
 
-    
-    
+    ctx.font = "normal 10px Outfit";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("SECONDS", 100, 78);
+    ctx.font = "normal 45px Outfit";
+    ctx.fillText(remainingTime, 100, 118);
+    ctx.font = "normal 10px Outfit";
+    ctx.fillText('REMAINING', 100, 135)
+
     // Fine del timer
     if (remainingTime <= 0) {
       clearInterval(timer);
@@ -138,7 +143,7 @@ function startTimer() {
 drawCircle(1);
 startTimer();
 
-// DOMANDE 
+// DOMANDE
 
 const questions = [
   {
@@ -207,11 +212,7 @@ const questions = [
     question:
       "What is the code name for the mobile operating system Android 7.0?",
     correct_answer: "Nougat",
-    incorrect_answers: [
-      "Ice Cream Sandwich",
-      "Jelly Bean",
-      "Marshmallow",
-    ],
+    incorrect_answers: ["Ice Cream Sandwich", "Jelly Bean", "Marshmallow"],
   },
   {
     category: "Science: Computers",
@@ -240,14 +241,14 @@ const questions = [
   },
 ];
 
-
 let flagStateRandom = true;
 let randomNumber = 0;
 let numberQuestion = 1;
 
-
 function randomQuestion() {
-  flagStateRandom = flagStateRandom ? randomNumber = Math.floor(Math.random() * questions.length) : false;
+  flagStateRandom = flagStateRandom
+    ? (randomNumber = Math.floor(Math.random() * questions.length))
+    : false;
   flagStateRandom = randomNumber;
   return flagStateRandom;
 }
@@ -259,7 +260,9 @@ const theQuestion = () => {
   const incorrect_answers = questions[questionRand].incorrect_answers;
   const correct_answer = questions[questionRand].correct_answer;
   incorrect_answers.push(correct_answer);
-  incorrect_answers.sort(() => Math.floor(Math.random() * incorrect_answers.length));
+  incorrect_answers.sort(() =>
+    Math.floor(Math.random() * incorrect_answers.length)
+  );
   console.log(incorrect_answers);
 
   for (let i = 0; i < incorrect_answers.length; i++) {
@@ -271,13 +274,12 @@ const theQuestion = () => {
     questionContaier.appendChild(answer);
     console.log(answer);
   }
-}
+};
 
 theQuestion();
 
 let incorrect_answers_number = 0;
 let correct_answer_number = 0;
-
 
 const isCorrect = (i) => {
   const btnAnswers = document.querySelectorAll("button:not(#answerConfirm)")[i];
@@ -287,25 +289,24 @@ const isCorrect = (i) => {
     incorrect_answers_number++;
     console.log(incorrect_answers_number);
     localStorage.setItem(incorrect_answers_number, "Risposta sbagliata");
-  }
-  else if (questions[i].correct_answer === btnAnswers.innerText) {
+  } else if (questions[i].correct_answer === btnAnswers.innerText) {
     correct_answer_number++;
     console.log(correct_answers_number);
     localStorage.setItem(correct_answers_number, "Risposta Corretta");
   }
-}
+};
 
 const whichAnswer = () => {
   let questionHTML = document.getElementById("question");
   const questionRand = randomQuestion();
   questionHTML.innerText = questions[questionRand].question;
-}
+};
 
 const nextQuestions = () => {
   flagStateRandom = true;
   whichAnswer();
   theQuestion();
-}
+};
 
 whichAnswer();
 
@@ -313,12 +314,14 @@ const resetAllAnswers = () => {
   document.querySelectorAll("button:not(#answerConfirm)").forEach((element) => {
     element.remove();
   });
-}
+};
 
-document.getElementById("answerConfirm").addEventListener('click',function(e) {
-   e.preventDefault();
-   resetAllAnswers();
-   nextQuestions();
-   numberQuestion++;
-   document.getElementById("numberQuestion").innerText = numberQuestion;
-});
+document
+  .getElementById("answerConfirm")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    resetAllAnswers();
+    nextQuestions();
+    numberQuestion++;
+    document.getElementById("numberQuestion").innerText = numberQuestion;
+  });

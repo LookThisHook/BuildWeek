@@ -47,9 +47,9 @@ Ideato e sviullapato dal TEAM6© Corso full-stack Epicode
 
 ## Developers
 ---
-Walter Antonelli
-Daniele Franceschini
-Giovanni Ramaglia
-Mariam Azami Azfar
-Osagumwenro Nicolas Osauwa
-Luca Giordano
+Walter Antonelli ,
+Daniele Franceschini ,
+Giovanni Ramaglia ,
+Mariam Azami Azfar ,
+Osagumwenro Nicolas Osauwa ,
+Luca Giordano ,

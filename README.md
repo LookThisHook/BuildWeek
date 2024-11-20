@@ -6,7 +6,8 @@ Un'app che replica il sistema di benchmark di Epicode, progettata per verificare
 
 ## Caratteristiche dell'applicazione
 ---
-Il file HTML principale, denominato index.html, rappresenta la pagina iniziale del benchmark. Questa pagina include una descrizione introduttiva delle regole fondamentali del test, accompagnata da un check che consente di accettare le regole viste per avviare il test. L'interazione è resa possibile grazie al collegamento a uno dei file JavaScript denominato script.js
+Abbiamo realizzato un sito web interattivo che guida l'utente attraverso un processo strutturato. La prima schermata presenta le regole base del test, che devono essere accettate tramite una checkbox per poter procedere. Una volta accettate, il sito passa a una sezione dedicata alle domande: ne vengono mostrate 10, una per volta, sulla stessa pagina. Ogni domanda viene sostituita dalla successiva quando si passa alla risposta successiva, creando un’esperienza fluida senza dover cambiare pagina. Al termine del test, viene presentata una schermata di feedback finale dove l’utente può valutare l’esperienza assegnando un punteggio tramite un sistema di stelle e aggiungendo un commento scritto.
+
 
 ## Funzionalità principali
 ---

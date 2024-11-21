@@ -3,7 +3,7 @@ const checkProceed = document.getElementById('proceedCheck');
 document.getElementById("proceedButton").addEventListener("click",function(e) {
     if(checkProceed.checked === true) {
         //document.getElementById("errorProceded").classList.remove("isDisplay");
-        location.href="exame.html";
+        location.href="exam.html";
         console.log(checkProceed.checked);
     }
     else {

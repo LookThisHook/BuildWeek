@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 
 // Configurazione del cerchio
 const radius = 60; // Raggio del cerchio
-const fullTime = 60;
+const fullTime = 10;
 let remainingTime = fullTime;
 
 // Funzione per disegnare il cerchio
@@ -60,6 +60,7 @@ function startTimer() {
     if (remainingTime <= 0) {
       clearInterval(timer);
       startTimer();
+      goToResultPage();
       resetAllAnswers();
       nextQuestions();
       theQuestion();
@@ -194,9 +195,10 @@ function randomQuestion() {
 randomQuestion();
 
 const theQuestion = () => {
+  document.getElementById("answerConfirm").setAttribute("disabled", "true");
   const questionHTML = document.getElementById("question");
   questionHTML.innerText = questions[randomNumber].question;
-  const questionContaier = document.getElementById("quiz-container");
+  const questionContaier = document.getElementById("options");
   const incorrect_answers = questions[randomNumber].incorrect_answers;
   const correct_answer = questions[randomNumber].correct_answer;
   incorrect_answers.push(correct_answer);
@@ -204,11 +206,18 @@ const theQuestion = () => {
   incorrect_answers.sort(() => Math.floor(Math.random() - 0.5));
 
   for (let i = 0; i < incorrect_answers.length; i++) {
-    const answer = document.createElement("button");
-    answer.innerText = incorrect_answers[i];
+    const divOption = document.createElement("label");
+    divOption.classList.add("optionContainer");
+    const radio = document.createElement("input");
+    const answer = document.createElement("div");
     answer.classList.add("option");
-    answer.setAttribute("onclick", `isCorrect(${i})`);
-    questionContaier.appendChild(answer);
+    divOption.appendChild(radio);
+    radio.setAttribute("type", "radio");
+    radio.setAttribute("name", "option");
+    answer.innerText = incorrect_answers[i];
+    divOption.setAttribute("onclick", `isCorrect(${i})`);
+    divOption.appendChild(answer);
+    questionContaier.appendChild(divOption);
   }
 };
 
@@ -218,8 +227,12 @@ let incorrect_answers_number = 0;
 let correct_answer_number = 0;
 
 const isCorrect = (i) => {
-  const btnAnswers = document.querySelectorAll("button:not(#answerConfirm)")[i];
-  btnAnswers.classList.add("selected");
+  document.getElementById("answerConfirm").removeAttribute("disabled");
+  const btnAnswers = document.querySelectorAll(".option")[i];
+  if (checkProceed.checked === true) {
+    btnAnswers.classList.add("selected");
+  };
+ 
   if (questions[i].incorrect_answers[i] === btnAnswers.innerText) {
     incorrect_answers_number++;
     localStorage.setItem(incorrect_answers_number, "Risposta sbagliata");
@@ -239,13 +252,19 @@ const nextQuestions = () => {
 };
 
 const resetAllAnswers = () => {
-  document.querySelectorAll("button:not(#answerConfirm)").forEach((element) => {
+  /* document.querySelectorAll("label").forEach((element) => {
+    element.remove();
+  });
+  document.querySelectorAll("input").forEach((element) => {
+    element.remove();
+  });*/
+  document.querySelectorAll(".optionContainer").forEach((element) => {
     element.remove();
   });
 };
 
 const goToResultPage = () => {
-  if (numberQuestion == questions.length + 1) {
+  if (numberQuestion == questions.length) {
     location.href = "result.html";
   }
 };
@@ -256,5 +275,6 @@ document.getElementById("answerConfirm").addEventListener("click", function () {
   nextQuestions();
   theQuestion();
   startTimer();
+  numberQuestion++;
   document.getElementById("numberQuestion").innerText = numberQuestion;
 });

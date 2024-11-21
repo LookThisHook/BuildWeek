@@ -29,7 +29,7 @@ h3 {
 
 #logo img {
   width: 10vw;
-  margin: 3em 0 ;
+  margin: 3em 0;
 }
 
 .btnBlue {
@@ -50,10 +50,14 @@ h3 {
 #results section {
   display: flex;
   align-items: center;
+  align-content: center;
   justify-content: space-between;
 }
 
-
+input[type="checkbox"], .optionContainer input  {
+  visibility: hidden;
+  display: none;
+}
 
 /* ----- Welcome page ----- */
 
@@ -92,11 +96,6 @@ h3 {
   width: 100%;
 }
 
-input[type="checkbox"] {
-  visibility: hidden;
-  display: none;
-}
-
 #check {
   cursor: pointer;
 }
@@ -111,6 +110,7 @@ input[type="checkbox"] {
   height: 25px;
   background-color: #d20094;
   border-radius: 5px;
+  transform: rotate(90deg);
 }
 
 .checkmark {
@@ -119,7 +119,7 @@ input[type="checkbox"] {
   height: 20px;
   border: 3px solid white;
   border-radius: 5px;
-  transition: all 0.375s;
+  transition: all 0.4s;
 }
 
 #proceed button {
@@ -167,26 +167,29 @@ input[type="checkbox"] {
 }
 
 .option {
-  min-width: 450px;
-  height: 5em;
-  margin: 2em;
+  display: inline-block;
+  padding: 26px;
+  width: 500px;
+  height: 80px;
+  margin: 2em 2em;
   border: transparent;
   border-radius: 40px;
   box-shadow: 3px -1px 3px white, -2px -2px 3px white;
   background-color: rgb(255, 255, 255, 10%);
   color: white;
-  font-size: 1em;
+  font-size: 1.3em;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .option:hover {
   background-color: #d20094;
 }
 
-.selected {
+.optionContainer input:checked ~ div {
   border: 3px solid #d20094;
   border-bottom: 3px;
   box-shadow: 3px -1px 4px #d20094, -2px -2px 4px #d20094;
-  box-sizing: border-box;
 }
 
 #answerConfirm {
@@ -253,25 +256,21 @@ input[type="checkbox"] {
   font-size: 0.4em;
 }
 
-#graphic {                                /* Da Commentare */
-  font-family: "Roboto", serif; 
-  border-radius: 50%;                          /*<==*/
-  border: 40px solid #00ffff;                /*<==*/
-  border-bottom: 40px solid #d20094;         /*<==*/
+#graphic {
+  font-family: "Roboto", serif;
+  border-radius: 50%; 
+  border: 40px solid #00ffff; 
+  border-bottom: 40px solid #d20094; 
   width: 400px;
   height: 400px;
   font-size: 0.5em;
   text-align: center;
-  /*display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;*/
   margin-top: 1.7em;
 }
 
 #graphic div {
-    margin: 80px 0 0 42px;
-    width: 100%;
+  margin: 80px 0 0 42px;
+  width: 100%;
 }
 
 #text {
@@ -352,16 +351,3 @@ input[type="checkbox"] {
   margin: 3em 0;
 }
 
-.epicode {
-    margin-top: 4em;
-}
-
-.link{
-    color: white;
-    text-decoration: none;
-}
-
-.link img {
-    width: 100px;
-    margin-left: 3px;
-}

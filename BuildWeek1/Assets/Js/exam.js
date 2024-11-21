@@ -229,10 +229,6 @@ let correct_answer_number = 0;
 const isCorrect = (i) => {
   document.getElementById("answerConfirm").removeAttribute("disabled");
   const btnAnswers = document.querySelectorAll(".option")[i];
-  if (checkProceed.checked === true) {
-    btnAnswers.classList.add("selected");
-  };
- 
   if (questions[i].incorrect_answers[i] === btnAnswers.innerText) {
     incorrect_answers_number++;
     localStorage.setItem(incorrect_answers_number, "Risposta sbagliata");
@@ -240,7 +236,6 @@ const isCorrect = (i) => {
     correct_answer_number++;
     localStorage.setItem(correct_answer_number, "Risposta Corretta");
   }
-  numberQuestion++;
 };
 
 const nextQuestions = () => {

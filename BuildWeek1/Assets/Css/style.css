@@ -8,6 +8,7 @@ body {
   color: white;
   font-family: "Roboto", serif;
   font-weight: 300;
+  min-height: 100vh;
 }
 
 main,
@@ -23,12 +24,12 @@ h3 {
 }
 
 #logo {
-  height: 20vh;
+  height: 14vh;
 }
 
 #logo img {
   width: 10vw;
-  margin: 4em 0;
+  margin: 3em 0 ;
 }
 
 .btnBlue {
@@ -52,6 +53,8 @@ h3 {
   justify-content: space-between;
 }
 
+
+
 /* ----- Welcome page ----- */
 
 #instructions {
@@ -62,9 +65,9 @@ h3 {
 
 #title {
   font-weight: normal;
-  font-size: 5em;
+  font-size: 4.8em;
   line-height: 0.8em;
-  margin-top: 10px;
+  margin-top: 0.4em;
 }
 
 #instructionsTitle {
@@ -148,16 +151,13 @@ input[type="checkbox"] {
   margin-top: 2em;
 }
 
-#timeriminig {
-  font-size: 2em;
-  color: white;
-  margin-top: -120px;
-  margin-right: -600px;
+#exam,
+.numbersQuestion {
+  text-align: center;
 }
 
-#exam,
-#questionNumber {
-  text-align: center;
+#exam {
+  margin-top: 6em;
 }
 
 #question {
@@ -183,7 +183,10 @@ input[type="checkbox"] {
 }
 
 .selected {
-  background-color: #d20094;
+  border: 3px solid #d20094;
+  border-bottom: 3px;
+  box-shadow: 3px -1px 4px #d20094, -2px -2px 4px #d20094;
+  box-sizing: border-box;
 }
 
 #answerConfirm {
@@ -191,21 +194,23 @@ input[type="checkbox"] {
   border-radius: 10px;
 }
 
-#questionNumber {
-  margin-top: 3em;
+.numbersQuestion {
+  margin: 4em 0;
   font-weight: 400;
   font-size: 1.3em;
+  letter-spacing: 2px;
 }
 
 .colored {
   color: #d20094;
+  font-weight: bold;
 }
 
 /* ----- Result page ----- */
 
 #results {
   text-align: center;
-  height: 75vh;
+  margin: 0 auto;
   font-size: 2em;
   font-family: "Outfit", sans-serif;
 }
@@ -221,7 +226,8 @@ input[type="checkbox"] {
 
 #results section {
   font-size: 2em;
-  height: 50vh;
+  justify-content: space-around;
+  margin-top: -30px;
 }
 
 #correct,
@@ -247,15 +253,52 @@ input[type="checkbox"] {
   font-size: 0.4em;
 }
 
+#graphic {                                /* Da Commentare */
+  font-family: "Roboto", serif; 
+  border-radius: 50%;                          /*<==*/
+  border: 40px solid #00ffff;                /*<==*/
+  border-bottom: 40px solid #d20094;         /*<==*/
+  width: 400px;
+  height: 400px;
+  font-size: 0.5em;
+  text-align: center;
+  /*display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;*/
+  margin-top: 1.7em;
+}
+
+#graphic div {
+    margin: 80px 0 0 42px;
+    width: 100%;
+}
+
+#text {
+  color: #00ffff;
+  font-size: 0.9em;
+}
+
+#result {
+  width: 80%;
+  font-weight: bold;
+}
+
+#resultText {
+  width: 80%;
+  font-size: 0.6em;
+  margin-top: 3em;
+}
+
 #rate {
-  margin: 2em;
-  width: 180px;
-  height: 60px;
+  margin: 2.5em 0 3.5em 38px;
+  width: 280px;
+  height: 90px;
   background-color: transparent;
   border: 2px solid white;
   color: white;
   font-weight: bold;
-  font-size: 0.5em;
+  font-size: 0.8em;
   cursor: pointer;
   border-radius: 5px;
 }
@@ -290,7 +333,7 @@ input[type="checkbox"] {
   transform: scale(1.2);
 }
 
-.star.selected {
+.star.starSelected {
   filter: grayscale(0%);
 }
 
@@ -306,5 +349,19 @@ input[type="checkbox"] {
 }
 
 #feedback button {
-  margin-top: 3em;
+  margin: 3em 0;
+}
+
+.epicode {
+    margin-top: 4em;
+}
+
+.link{
+    color: white;
+    text-decoration: none;
+}
+
+.link img {
+    width: 100px;
+    margin-left: 3px;
 }

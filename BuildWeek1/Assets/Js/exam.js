@@ -1,78 +1,3 @@
-/*
-let myChart;
-let indexTime = 60;
-
-function drawPieChart(value, maxValue) {
-  const ctx = document.getElementById('countdown').getContext('2d');
-  myChart = new Chart(ctx, {
-    type: 'doughnut',
-    text:indexTime,
-    data: {
-      datasets: [
-        {
-          data: [value, maxValue - value],
-          backgroundColor: ['#00ffff', 'white'],
-        },
-      ],
-    },
-    options: {
-      tooltips: {
-        enabled: false,
-      },
-      subtitle: {
-        display: true,
-        text: indexTime,
-        color: 'white',
-        font: {
-          size: 22,
-          family: 'Roboto',
-          weight: 'normal',
-        },
-        padding: {
-          bottom: 10
-        },
-      plugins: {
-        datalabels: {
-          backgroundColor: function (context) {
-            return context.dataset.backgroundColor;
-          },
-          display: function (context) {
-            //let dataset = context.dataset;
-            //let value = dataset.data[context.dataIndex];
-            return value > 0;
-          },
-          color: 'white',
-        },
-      },
-    },
-  },
-  });
-}
-
-function updateChart(chart, counter) {
-  chart.data.datasets[0].data[1] = counter;
-  chart.update();
-}
-
-const init = () => {
-  drawPieChart(60 *150 /360, 60);
-
-  let counter = 0;
-  setInterval(() => {
-    counter = counter + 1;
-
-    updateChart(myChart, counter);
-  }, 1000);
-};
-
-const timer = () => {
-  indexTime--;
-  document.getElementById("timer-right").innerText = indexTime;
-  return indexTime;
-}
-init();
-*/
-
 // Selezione del canvas e configurazione del contesto
 const canvas = document.getElementById("countdown");
 const ctx = canvas.getContext("2d");
@@ -105,14 +30,14 @@ function drawCircle(progress) {
     false
   );
 
-  ctx.strokeStyle = "#3498db";
+  ctx.strokeStyle = "#d20094";
   ctx.lineWidth = 10;
   ctx.stroke();
 }
 
 // Funzione per far partire il timer
 function startTimer() {
-  const interval = 1000; // Intervallo di aggiornamento (50 ms)
+  const interval = 50; // Intervallo di aggiornamento (50 ms)
   const totalSteps = (fullTime * 1000) / interval; // Numero totale di aggiornamenti
   let step = 0;
 
@@ -127,15 +52,27 @@ function startTimer() {
     ctx.textAlign = "center";
     ctx.fillText("SECONDS", 100, 78);
     ctx.font = "normal 45px Outfit";
-    ctx.fillText(remainingTime, 100, 118);
+    ctx.fillText(Math.floor(remainingTime), 100, 118);
     ctx.font = "normal 10px Outfit";
-    ctx.fillText('REMAINING', 100, 135)
+    ctx.fillText("REMAINING", 100, 135);
 
     // Fine del timer
     if (remainingTime <= 0) {
       clearInterval(timer);
-      console.log("Timer completato!");
+      startTimer();
+      resetAllAnswers();
+      nextQuestions();
+      theQuestion();
+      numberQuestion++;
+      document.getElementById("numberQuestion").innerText = numberQuestion;
     }
+
+    document
+      .getElementById("answerConfirm")
+      .addEventListener("click", function (e) {
+        e.preventDefault();
+        clearInterval(timer);
+      });
   }, interval);
 }
 
@@ -244,35 +181,34 @@ const questions = [
 let flagStateRandom = true;
 let randomNumber = 0;
 let numberQuestion = 1;
+const arraySubmitAnswers = [];
 
 function randomQuestion() {
   flagStateRandom = flagStateRandom
-    ? (randomNumber = Math.floor(Math.random() * questions.length))
+    ? (randomNumber = Math.floor(Math.random() * questions.length).toFixed())
     : false;
   flagStateRandom = randomNumber;
   return flagStateRandom;
 }
 
+randomQuestion();
+
 const theQuestion = () => {
-  flagStateRandom = false;
-  const questionRand = randomNumber;
+  const questionHTML = document.getElementById("question");
+  questionHTML.innerText = questions[randomNumber].question;
   const questionContaier = document.getElementById("quiz-container");
-  const incorrect_answers = questions[questionRand].incorrect_answers;
-  const correct_answer = questions[questionRand].correct_answer;
+  const incorrect_answers = questions[randomNumber].incorrect_answers;
+  const correct_answer = questions[randomNumber].correct_answer;
   incorrect_answers.push(correct_answer);
-  incorrect_answers.sort(() =>
-    Math.floor(Math.random() * incorrect_answers.length)
-  );
-  console.log(incorrect_answers);
+  arraySubmitAnswers.push(randomNumber);
+  incorrect_answers.sort(() => Math.floor(Math.random() - 0.5));
 
   for (let i = 0; i < incorrect_answers.length; i++) {
-    console.log(i);
     const answer = document.createElement("button");
     answer.innerText = incorrect_answers[i];
     answer.classList.add("option");
     answer.setAttribute("onclick", `isCorrect(${i})`);
     questionContaier.appendChild(answer);
-    console.log(answer);
   }
 };
 
@@ -284,31 +220,23 @@ let correct_answer_number = 0;
 const isCorrect = (i) => {
   const btnAnswers = document.querySelectorAll("button:not(#answerConfirm)")[i];
   btnAnswers.classList.add("selected");
-  console.log(btnAnswers);
   if (questions[i].incorrect_answers[i] === btnAnswers.innerText) {
     incorrect_answers_number++;
-    console.log(incorrect_answers_number);
     localStorage.setItem(incorrect_answers_number, "Risposta sbagliata");
   } else if (questions[i].correct_answer === btnAnswers.innerText) {
     correct_answer_number++;
-    console.log(correct_answers_number);
     localStorage.setItem(correct_answers_number, "Risposta Corretta");
   }
-};
-
-const whichAnswer = () => {
-  let questionHTML = document.getElementById("question");
-  const questionRand = randomQuestion();
-  questionHTML.innerText = questions[questionRand].question;
+  numberQuestion++;
 };
 
 const nextQuestions = () => {
-  flagStateRandom = true;
-  whichAnswer();
-  theQuestion();
+  if (arraySubmitAnswers.includes(randomNumber)) {
+    flagStateRandom = true;
+    randomQuestion();
+    nextQuestions();
+  }
 };
-
-whichAnswer();
 
 const resetAllAnswers = () => {
   document.querySelectorAll("button:not(#answerConfirm)").forEach((element) => {
@@ -316,12 +244,17 @@ const resetAllAnswers = () => {
   });
 };
 
-document
-  .getElementById("answerConfirm")
-  .addEventListener("click", function (e) {
-    e.preventDefault();
-    resetAllAnswers();
-    nextQuestions();
-    numberQuestion++;
-    document.getElementById("numberQuestion").innerText = numberQuestion;
-  });
+const goToResultPage = () => {
+  if (numberQuestion == questions.length + 1) {
+    location.href = "result.html";
+  }
+};
+
+document.getElementById("answerConfirm").addEventListener("click", function () {
+  goToResultPage();
+  resetAllAnswers();
+  nextQuestions();
+  theQuestion();
+  startTimer();
+  document.getElementById("numberQuestion").innerText = numberQuestion;
+});

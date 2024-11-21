@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 
 // Configurazione del cerchio
 const radius = 60; // Raggio del cerchio
-const fullTime = 10;
+const fullTime = 60;
 let remainingTime = fullTime;
 
 // Funzione per disegnare il cerchio
@@ -252,12 +252,6 @@ const nextQuestions = () => {
 };
 
 const resetAllAnswers = () => {
-  /* document.querySelectorAll("label").forEach((element) => {
-    element.remove();
-  });
-  document.querySelectorAll("input").forEach((element) => {
-    element.remove();
-  });*/
   document.querySelectorAll(".optionContainer").forEach((element) => {
     element.remove();
   });

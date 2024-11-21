@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>Exam</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -17,60 +17,45 @@
 <body>
 
     <header id="logo">
+
         <img src="Assets/Images/epicode_logo.png" alt="Logo Epicode" />
+
+
+
+        <div class="c-countdown-wrapper">
+
+            <canvas id="countdown" width="200" height="200"><span id="timer-right"></span></canvas>
+            <div id="timeriminig"></div>
+
+        </div>
+
     </header>
 
-    <main>
+    <main id="exam">
 
-        <div id="instructions">
+        <div id="quiz-container">
 
-            <h1 id="title">Welcome to <br> <b>your exam</b></h1>
+            <h1 id="question">How can I create a <br> <b>checkbox in HTML?</b></h1>
 
-            <h2 id="instructionsTitle">Instructions</h2>
-            <p id="description">We don't expect most engineers to know the answers to all of these questions, so don't
-                worry if you're unsure of a few of them.</p>
+            <div class="options">
 
-            <ul id="instructionList">
-                <li>
-                    Each question is <b>timed</b> and can only <b>answered once.</b>
-                </li>
-                <li>
-                    Changing browser tab or opening other windows will <b>invalidate the question.</b>
-                </li>
-                <li>
-                    This exam will take approx, <b>0-5 minutes.</b>
-                </li>
-            </ul>
-
-        </div>
-
-        <div id="proceed">
-
-            <div id="check">
-
-                <label class="check">
-                    <input type="checkbox" id="proceedCheck" required>
-                    <span class="checkmark"></span> &nbsp; &nbsp;
-                    <b>I promise to answer myself without help from anyone</b>
-                </label>
-
-            </div>
-
-            <div>
-                <button type="button" id="proceedButton" class="btnBlue">PROCEED</button>
             </div>
 
         </div>
 
-        <p id="errorProceded">Check this field for continue exame</p>
+        <button type="button" id="answerConfirm" class="btnBlue">PROCEED</button>
 
     </main>
 
-    <footer>
+    <footer class="numbersQuestion">
+
+        <div>
+            <span>QUESTION &nbsp;</span><span id="numberQuestion"></span><span class="colored"> / 10</span>
+        </div>
 
     </footer>
 
-    <script src="Assets/Js/script.js"></script>
-</body>
 
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Assets/Js/exam.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>

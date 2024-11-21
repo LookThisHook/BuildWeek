@@ -181,9 +181,6 @@ const questions = [
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
 ];
-let randomNumber = 0;
-let numberQuestion = 1;
-const arraySubmitAnswers = [];
 
 function resetQuizData() {
   localStorage.setItem("risposteCorrette", JSON.stringify([]));
@@ -191,6 +188,10 @@ function resetQuizData() {
 }
 
 
+
+let randomNumber = 0;
+let numberQuestion = 1;
+const arraySubmitAnswers = [];
 
 // Mostrare una domanda casuale
 function randomQuestion() {
@@ -232,26 +233,23 @@ const theQuestion = () => {
 
 theQuestion();
 
-let incorrect_answers_number = 0;
-let correct_answer_number = 0;
+const isCorrect = (selectedAnswer) => {
+  const risposteCorrette = JSON.parse(localStorage.getItem("risposteCorrette")) || [];
+  const risposteSbagliate = JSON.parse(localStorage.getItem("risposteSbagliate")) || [];
 
-const isCorrect = (i) => {
-  document.getElementById("answerConfirm").removeAttribute("disabled");
-  const btnAnswers = document.querySelectorAll(".option")[i];
-  if (checkProceed.checked === true) {
-    btnAnswers.classList.add("selected");
-  };
- 
-  if (questions[i].incorrect_answers[i] === btnAnswers.innerText) {
-    incorrect_answers_number++;
-    localStorage.setItem(incorrect_answers_number, "Risposta sbagliata");
-  } else if (questions[i].correct_answer === btnAnswers.innerText) {
-    correct_answer_number++;
-    localStorage.setItem(correct_answer_number, "Risposta Corretta");
+  if (questions[randomNumber].correct_answer === selectedAnswer) {
+    if (!risposteCorrette.includes(questions[randomNumber].question)) {
+      risposteCorrette.push(questions[randomNumber].question);
+    }
+  } else {
+    if (!risposteSbagliate.includes(questions[randomNumber].question)) {
+      risposteSbagliate.push(questions[randomNumber].question);
+    }
   }
-  numberQuestion++;
-};
 
+  localStorage.setItem("risposteCorrette", JSON.stringify(risposteCorrette));
+  localStorage.setItem("risposteSbagliate", JSON.stringify(risposteSbagliate));
+};
 
 const goToResultPage = () => {
   location.href = "result.html";

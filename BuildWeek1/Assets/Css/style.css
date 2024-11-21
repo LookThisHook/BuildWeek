@@ -161,7 +161,7 @@ input[type="checkbox"] {
 }
 
 #question {
-  font-size: 3.5em;
+  font-size: 3.2em;
   font-weight: normal;
   margin-bottom: 1.5em;
 }
@@ -291,7 +291,7 @@ input[type="checkbox"] {
 }
 
 #rate {
-  margin: 2.5em 0 3.5em 38px;
+  margin: 2.5em 0 3.5em 36px;
   width: 280px;
   height: 90px;
   background-color: transparent;

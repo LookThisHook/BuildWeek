@@ -1,15 +1,24 @@
+resetQuizData();
 // Selezione del canvas e configurazione del contesto
 const canvas = document.getElementById("countdown");
 const ctx = canvas.getContext("2d");
 
 // Configurazione del cerchio
 const radius = 60; // Raggio del cerchio
-const fullTime = 60;
+const fullTime = 60; // Durata del timer
 let remainingTime = fullTime;
+
+// Reset delle risposte salvate
+function resetQuizData() {
+  localStorage.setItem("risposteCorrette", JSON.stringify([]));
+  localStorage.setItem("risposteSbagliate", JSON.stringify([]));
+}
+
+// Chiama il reset all'inizio
+resetQuizData();
 
 // Funzione per disegnare il cerchio
 function drawCircle(progress) {
-  // Pulizia del canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Cerchio di sfondo
@@ -29,7 +38,6 @@ function drawCircle(progress) {
     -Math.PI / 2 + 2 * Math.PI * progress,
     false
   );
-
   ctx.strokeStyle = "#d20094";
   ctx.lineWidth = 10;
   ctx.stroke();
@@ -47,6 +55,7 @@ function startTimer() {
     const progress = remainingTime / fullTime; // Progresso percentuale
     drawCircle(progress); // Aggiornamento del cerchio
 
+    // Testo all'interno del cerchio
     ctx.font = "normal 10px Outfit";
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
@@ -59,27 +68,21 @@ function startTimer() {
     // Fine del timer
     if (remainingTime <= 0) {
       clearInterval(timer);
-      startTimer();
       goToResultPage();
-      resetAllAnswers();
-      nextQuestions();
-      theQuestion();
-      numberQuestion++;
-      document.getElementById("numberQuestion").innerText = numberQuestion;
     }
 
-    document
-      .getElementById("answerConfirm")
-      .addEventListener("click", function (e) {
-        e.preventDefault();
-        clearInterval(timer);
-      });
+    // Fermare il timer quando viene confermata una risposta
+    document.getElementById("answerConfirm").addEventListener("click", function (e) {
+      e.preventDefault();
+      clearInterval(timer);
+    });
   }, interval);
 }
 
 // Disegna il cerchio iniziale e avvia il timer
 drawCircle(1);
 startTimer();
+
 
 // DOMANDE
 
@@ -178,97 +181,94 @@ const questions = [
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
 ];
-
-let flagStateRandom = true;
 let randomNumber = 0;
 let numberQuestion = 1;
 const arraySubmitAnswers = [];
 
-function randomQuestion() {
-  flagStateRandom = flagStateRandom
-    ? (randomNumber = Math.floor(Math.random() * questions.length).toFixed())
-    : false;
-  flagStateRandom = randomNumber;
-  return flagStateRandom;
+function resetQuizData() {
+  localStorage.setItem("risposteCorrette", JSON.stringify([]));
+  localStorage.setItem("risposteSbagliate", JSON.stringify([]));
 }
 
-randomQuestion();
+
+
+// Mostrare una domanda casuale
+function randomQuestion() {
+  do {
+    randomNumber = Math.floor(Math.random() * questions.length);
+  } while (arraySubmitAnswers.includes(randomNumber));
+  return randomNumber;
+}
 
 const theQuestion = () => {
-  document.getElementById("answerConfirm").setAttribute("disabled", "true");
   const questionHTML = document.getElementById("question");
   questionHTML.innerText = questions[randomNumber].question;
-  const questionContaier = document.getElementById("options");
-  const incorrect_answers = questions[randomNumber].incorrect_answers;
+  const questionContainer = document.getElementById("options");
+  const incorrect_answers = [...questions[randomNumber].incorrect_answers];
   const correct_answer = questions[randomNumber].correct_answer;
-  incorrect_answers.push(correct_answer);
-  arraySubmitAnswers.push(randomNumber);
-  incorrect_answers.sort(() => Math.floor(Math.random() - 0.5));
 
-  for (let i = 0; i < incorrect_answers.length; i++) {
+  incorrect_answers.push(correct_answer);
+  incorrect_answers.sort(() => Math.random() - 0.5);
+
+  incorrect_answers.forEach((answer, i) => {
     const divOption = document.createElement("label");
     divOption.classList.add("optionContainer");
     const radio = document.createElement("input");
-    const answer = document.createElement("div");
-    answer.classList.add("option");
+    const option = document.createElement("div");
+    option.classList.add("option");
+
     divOption.appendChild(radio);
+    divOption.appendChild(option);
     radio.setAttribute("type", "radio");
     radio.setAttribute("name", "option");
-    answer.innerText = incorrect_answers[i];
-    divOption.setAttribute("onclick", `isCorrect(${i})`);
-    divOption.appendChild(answer);
-    questionContaier.appendChild(divOption);
-  }
+    option.innerText = answer;
+
+    divOption.setAttribute("onclick", `isCorrect('${answer}')`);
+    questionContainer.appendChild(divOption);
+  });
+
+  arraySubmitAnswers.push(randomNumber);
 };
 
 theQuestion();
+const isCorrect = (selectedAnswer) => {
+  const risposteCorrette = JSON.parse(localStorage.getItem("risposteCorrette")) || [];
+  const risposteSbagliate = JSON.parse(localStorage.getItem("risposteSbagliate")) || [];
 
-let incorrect_answers_number = 0;
-let correct_answer_number = 0;
-
-const isCorrect = (i) => {
-  document.getElementById("answerConfirm").removeAttribute("disabled");
-  const btnAnswers = document.querySelectorAll(".option")[i];
-  if (checkProceed.checked === true) {
-    btnAnswers.classList.add("selected");
-  };
- 
-  if (questions[i].incorrect_answers[i] === btnAnswers.innerText) {
-    incorrect_answers_number++;
-    localStorage.setItem(incorrect_answers_number, "Risposta sbagliata");
-  } else if (questions[i].correct_answer === btnAnswers.innerText) {
-    correct_answer_number++;
-    localStorage.setItem(correct_answer_number, "Risposta Corretta");
+  if (questions[randomNumber].correct_answer === selectedAnswer) {
+    if (!risposteCorrette.includes(questions[randomNumber].question)) {
+      risposteCorrette.push(questions[randomNumber].question);
+    }
+  } else {
+    if (!risposteSbagliate.includes(questions[randomNumber].question)) {
+      risposteSbagliate.push(questions[randomNumber].question);
+    }
   }
-  numberQuestion++;
+
+  localStorage.setItem("risposteCorrette", JSON.stringify(risposteCorrette));
+  localStorage.setItem("risposteSbagliate", JSON.stringify(risposteSbagliate));
 };
 
-const nextQuestions = () => {
-  if (arraySubmitAnswers.includes(randomNumber)) {
-    flagStateRandom = true;
+
+const goToResultPage = () => {
+  location.href = "result.html";
+};
+
+document.getElementById("answerConfirm").addEventListener("click", function () {
+  resetAllAnswers();
+  if (arraySubmitAnswers.length < questions.length) {
     randomQuestion();
-    nextQuestions();
+    theQuestion();
+    startTimer();
+    numberQuestion++;
+    document.getElementById("numberQuestion").innerText = numberQuestion;
+  } else {
+    goToResultPage();
   }
-};
+});
 
 const resetAllAnswers = () => {
   document.querySelectorAll(".optionContainer").forEach((element) => {
     element.remove();
   });
 };
-
-const goToResultPage = () => {
-  if (numberQuestion == questions.length) {
-    location.href = "result.html";
-  }
-};
-
-document.getElementById("answerConfirm").addEventListener("click", function () {
-  goToResultPage();
-  resetAllAnswers();
-  nextQuestions();
-  theQuestion();
-  startTimer();
-  numberQuestion++;
-  document.getElementById("numberQuestion").innerText = numberQuestion;
-});

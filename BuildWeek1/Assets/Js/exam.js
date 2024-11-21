@@ -225,7 +225,7 @@ const isCorrect = (i) => {
     localStorage.setItem(incorrect_answers_number, "Risposta sbagliata");
   } else if (questions[i].correct_answer === btnAnswers.innerText) {
     correct_answer_number++;
-    localStorage.setItem(correct_answers_number, "Risposta Corretta");
+    localStorage.setItem(correct_answer_number, "Risposta Corretta");
   }
   numberQuestion++;
 };
